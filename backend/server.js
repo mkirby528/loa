@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('./config/database');
-var passport   = require('passport')
+const user = require('./models/User')
+const passport = require('passport')
+const session = require('express-session')
 
 
 const app = express();
@@ -10,10 +12,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-//Test DB
-db.authenticate()
-.then(()=> console.log('Database Connected...'))
-.catch(err =>console.log("Error: " + err))
+// For Passport
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 
 
@@ -30,5 +36,13 @@ app.get('/', (req, res) => res.send('index'));
 //User routes
 app.use('/users',require("./routes/users"))
 
+
+//load passport strategies
+require('./config/passport/passport')(passport,user);
+
+//Sync Database
+db.sync().then(function() {
+    console.log('Nice! Database looks fine')
+});
  
 app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
