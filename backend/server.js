@@ -3,7 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('./config/database');
 const user = require('./models/User')
-const passport = require('passport')
 const session = require('express-session')
 
 
@@ -17,9 +16,7 @@ app.use(session({
     secret: 'keyboard cat',
     resave: true,
     saveUninitialized: true
-})); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
+})); ``
 
 
 
@@ -38,7 +35,6 @@ app.use('/users',require("./routes/users"))
 
 
 //load passport strategies
-require('./config/passport/passport')(passport,user);
 
 //Sync Database
 db.sync().then(function() {
