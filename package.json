@@ -14,6 +14,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.3",
     "@material-ui/icons": "^3.0.2",
+    "axios": "^0.18.0",
     "bcrypt": "^3.0.5",
     "body-parser": "^1.18.3",
     "concurrently": "^4.1.0",
@@ -26,6 +27,7 @@
     "password": "^0.1.1",
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.6",
+    "react-context-global-state": "^2.1.5",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-router-dom": "^5.0.0",

@@ -3,6 +3,7 @@ const Sequelize = require('sequelize')
 module.exports =  new Sequelize('my-web-app-sql-db', 'root', 'Tennis528!', {
     host: 'localhost',
     dialect: 'mysql',
+    logging :false,
     // operatorsAliases: false,
     
 
