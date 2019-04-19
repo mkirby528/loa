@@ -1,0 +1,29 @@
+[33mcommit e6de33a430f2a8e424272974e4ac98bbc41eb4df[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: mkirby528 <mkirby528@unc.edu>
+Date:   Wed Apr 17 17:10:19 2019 -0400
+
+    login and registration seem to work
+
+[33mcommit 9d81979528294effa07f01e3754b9274ea3c1997[m
+Author: mkirby528 <mkirby528@unc.edu>
+Date:   Sat Apr 13 23:02:09 2019 -0400
+
+    /
+
+[33mcommit 149177959dcb3ed31c6cae288828ed3bba2726d0[m
+Author: mkirby528 <mkirby528@unc.edu>
+Date:   Sat Apr 13 00:13:44 2019 -0400
+
+    Login and Registration Front End Complete
+
+[33mcommit 53f969aba195989d07faf72ee08db7284a6190e1[m
+Author: mkirby528 <mkirby528@unc.edu>
+Date:   Fri Apr 12 00:03:37 2019 -0400
+
+    React frontend is nothing, but backend connects to database with sequelize. Before trying passport
+
+[33mcommit 2ce3a5a13cd01f642d8c1f2fc77a4ee8f3358ea4[m
+Author: mkirby528 <mkirby528@unc.edu>
+Date:   Mon Apr 8 16:43:36 2019 -0400
+
+    Initializing repository
