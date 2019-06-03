@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 
-module.exports =  new Sequelize('my-web-app-sql-db', 'root', 'Tennis528!', {
+module.exports =  new Sequelize('betterreads-db', 'root', '052899', {
     host: 'localhost',
     dialect: 'mysql',
     logging :false,
@@ -8,9 +8,10 @@ module.exports =  new Sequelize('my-web-app-sql-db', 'root', 'Tennis528!', {
     
 
     pool: {
-      max: 5,
-      min: 0,
+      max: 15,
+      min: 5,
+      idle: 20000,
+      evict: 15000,
       acquire: 30000,
-      idle: 10000
     },
   });

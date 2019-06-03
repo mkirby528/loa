@@ -46,6 +46,9 @@ class App extends Component {
         console.log(this.store);
         this.store.set('loggedIn')(true);
         this.store.set('username')(response.data.user.username);
+        this.store.set('userEmail')(response.data.user.email);
+        this.store.set('userFirstName')(response.data.user.firstname);
+        this.store.set('userLastName')(response.data.user.lastname)
      
       } else {
         console.log("Get user: no user");

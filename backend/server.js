@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const db = require("./config/database");
-const user = require("./models/User");
 const session = require("express-session");
 const passport = require('./passport');
 
@@ -30,8 +29,8 @@ app.get("/", (req, res) => res.send("index"));
 
 //User routes
 app.use("/users", require("./routes/users"));
+app.use("/gBooks", require("./routes/gBooks"))
 
-//load passport strategies
 
 //Sync Database
 db.sync().then(()=> console.log('db connected'))
