@@ -19,7 +19,7 @@ import MenuList from '@material-ui/core/MenuList';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import {Link} from 'react-router-dom'
-
+import axios from "axios"
 
 const styles = {
     root: {
@@ -69,10 +69,20 @@ const styles = {
 
 
 class AppHeader extends Component {
-    state = {
-        myBooksOpen: false,
-        myAccountOpen: false,
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            myBooksOpen: false,
+            myAccountOpen: false,
+        };
+        this.handleMyAccountClose = this.handleMyAccountClose.bind(this);
+        this.handleMyAccountToggle = this.handleMyAccountToggle.bind(this);
+        this.handleMyBooksClose = this.handleMyBooksClose.bind(this);
+        this.handleMyBooksToggle = this.handleMyBooksToggle.bind(this)
+        this.logout = this.logout.bind(this);
+        
+    }
+ 
 
     handleMyBooksClose = event => {
         if (this.myBooksAnchor.contains(event.target)) {
@@ -94,9 +104,25 @@ class AppHeader extends Component {
     handleMyAccountToggle = () => {
         this.setState(state => ({ myAccountOpen: !state.myAccountOpen }));
     };
+    logout(event) {
+        event.preventDefault()
+        axios.get('/users/logout').then(response => {
+          if (response.status === 200) {
+            this.props.updateUser({
+                loggedIn: false,
+                username: null,
+                firstname: null,
+                lastname: null,
+                email: null,
+            })
+            this.forceUpdate();
+ 
+          }
+        }).catch(error => {
+            console.log('Logout error: ' + error)
+        })
 
-
-
+    }
 
 
     render() {
@@ -171,7 +197,7 @@ class AppHeader extends Component {
                                                     <MenuList>
                                                         <MenuItem onClick={this.handleMyAccountClose}>My Account</MenuItem>
                                                         <MenuItem onClick={this.handleMyAccountClose}>Friends</MenuItem>
-                                                        <MenuItem onClick={this.handleMyAccountClose}>Logout</MenuItem>
+                                                        <MenuItem onClick={this.logout}>Logout</MenuItem>
                                                     </MenuList>
                                                 </ClickAwayListener>
                                             </Paper>

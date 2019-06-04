@@ -3,7 +3,6 @@ const router = express.Router();
 const gBooks = require('google-books-search')
 
 const options = {
-    key: 'AIzaSyCmfIN64nQeBjOk_hlchYacjOyaL1jWq0E',
     offset: 0,
     limit: 10,
     type: 'books',

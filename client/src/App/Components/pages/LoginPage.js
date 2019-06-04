@@ -48,7 +48,7 @@ class LoginPage extends Component {
         }
       })
       .catch(error => {
-        console.log("login error: ");
+        console.log("login error: " + error);
         console.log(error);
         this.setState({ showErrorMessage: true });
       });

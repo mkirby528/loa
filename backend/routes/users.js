@@ -52,6 +52,15 @@ router.post(
   }
 )
 
+router.get('/logout',(req,res)=>{
+  if(req.user){
+    req.logout()
+    res.send({ msg: 'logging out' })
+    }else{
+      res.json({ user: null })
+  }
+})
+
 router.get('/', (req, res, next) => {
   console.log('===== user======')
   console.log(req.user)

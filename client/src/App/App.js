@@ -76,7 +76,7 @@ class App extends Component {
               />}
           />
           <Route exact path="/register" component={RegistrationPage} />
-          <Route exact path= "/" component={HomePage}/>
+          <Route exact path= "/" render={()=> <HomePage updateUser ={this.updateUser}/>}></Route>
         </Switch>
       </div>
     );

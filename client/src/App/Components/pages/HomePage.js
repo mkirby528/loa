@@ -3,14 +3,15 @@ import Store from '../../MyStore'
 import './stylesheets/HomePage.css'
 import AppHeader from '../AppHeader';
 class HomePage extends Component {
+  constructor(props){
+    super(props);
+  }
 
-
-  componentDidMount() {}
 
   render() {    
     let store = this.props.store
     return (
-<AppHeader></AppHeader>
+<AppHeader  updateUser={this.props.updateUser}/>
       );
   }
 }
