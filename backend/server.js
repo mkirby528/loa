@@ -3,15 +3,14 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const db = require("./config/database");
 const session = require("express-session");
-const passport = require('./passport');
-const cookieParser = require('cookie-parser')
+const passport = require("./passport");
+const cookieParser = require("cookie-parser");
 // const cookieSession = require('cookie-session')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cookieParser()) // required before session.
-
+app.use(cookieParser()); // required before session.
 
 app.use(
   session({
@@ -33,10 +32,9 @@ app.get("/", (req, res) => res.send("index"));
 
 //User routes
 app.use("/users", require("./routes/users"));
-app.use("/gBooks", require("./routes/gBooks"))
-
+app.use("/gBooks", require("./routes/gBooks"));
 
 //Sync Database
-db.sync().then(()=> console.log('db connected'))
+db.sync().then(() => console.log("Database connected"));
 
-app.listen(API_PORT, () => console.log(`Listening on port ${API_PORT}`));
+app.listen(API_PORT, () => console.log(`API listening on port ${API_PORT}`));

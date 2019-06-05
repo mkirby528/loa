@@ -1,27 +1,24 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const gBooks = require('google-books-search')
+const gBooks = require("google-books-search");
 
 const options = {
-    offset: 0,
-    limit: 10,
-    type: 'books',
-    order: 'relevance',
-    lang: 'en'
+  offset: 0,
+  limit: 10,
+  type: "books",
+  order: "relevance",
+  lang: "en"
 };
 
-
-
-router.get('/', (req, res, next) => {
-    res.header("Content-Type",'application/json');
-    gBooks.search('Harry Potter', options, function(error, results) {
-        if ( ! error ) {
-            res.send(JSON.stringify(results, null, 2));
-        } else {
-            res.json(error);
-        }
-    });
-    
+router.get("/", (req, res, next) => {
+  res.header("Content-Type", "application/json");
+  gBooks.search("Harry Potter", options, function(error, results) {
+    if (!error) {
+      res.send(JSON.stringify(results, null, 2));
+    } else {
+      res.json(error);
+    }
+  });
 });
 
-module.exports =router;
+module.exports = router;

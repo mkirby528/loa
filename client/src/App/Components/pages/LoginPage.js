@@ -30,16 +30,13 @@ class LoginPage extends Component {
         password: this.state.password
       })
       .then(response => {
-        console.log("login response: ");
-        console.log(response);
         if (response.status === 200) {
           this.props.updateUser({
             loggedIn: true,
             username: response.data.username,
             firstname: response.data.firstname,
             lastname: response.data.lastname,
-            email: response.data.email,
-            
+            email: response.data.email
           });
           // update the state to redirect to home
           this.setState({
@@ -57,7 +54,9 @@ class LoginPage extends Component {
   render() {
     var errorMessage = null;
     if (this.state.showErrorMessage) {
-      errorMessage = <p className = "errorMessage">Incorrect username or password</p>;
+      errorMessage = (
+        <p className="errorMessage">Incorrect username or password</p>
+      );
     }
     if (this.state.redirectTo) {
       return <Redirect to={{ pathname: this.state.redirectTo }} />;
