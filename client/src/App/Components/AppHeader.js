@@ -20,6 +20,7 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Select from "@material-ui/core/Select";
 
 const styles = {
   root: {
@@ -38,7 +39,7 @@ const styles = {
     width: 150,
     height: "50%",
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
     background: "#175676",
     margin: 10
   },
@@ -53,6 +54,38 @@ const styles = {
     width: 400
   },
   searchIcon: {
+    color: "white"
+  },
+  Select: {
+    "&:before": {
+      borderColor: "white"
+    },
+    "&:after": {
+      borderColor: "white"
+    },
+    // border: "3px solid white",
+    color: "white",
+    background: "#2E6683",
+    fontFamily: [
+      "-apple-system",
+      "BlinkMacSystemFont",
+      '"Segoe UI"',
+      "Roboto",
+      '"Helvetica Neue"',
+      "Arial",
+      "sans-serif",
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"'
+    ].join(","),
+    width: "auto",
+    fontSize: 18,
+    padding: "0px 5px 0px 5px",
+    fontWeight: "bold",
+    textAlign: "center",
+    position: "relative"
+  },
+  selectIcon: {
     color: "white"
   },
   textField: {
@@ -72,13 +105,22 @@ class AppHeader extends Component {
     super(props);
     this.state = {
       myBooksOpen: false,
-      myAccountOpen: false
+      myAccountOpen: false,
+      searchField: "all"
     };
     this.handleMyAccountClose = this.handleMyAccountClose.bind(this);
     this.handleMyAccountToggle = this.handleMyAccountToggle.bind(this);
     this.handleMyBooksClose = this.handleMyBooksClose.bind(this);
     this.handleMyBooksToggle = this.handleMyBooksToggle.bind(this);
     this.logout = this.logout.bind(this);
+    this.handleSearchFieldChange = this.handleSearchFieldChange.bind(this);
+    this.handleSearchFieldOpen = this.handleSearchFieldOpen.bind(this);
+    this.handleSearchFieldClose = this.handleSearchFieldClose.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  handleSearch() {
+    console.log(this.state.searchField);
   }
 
   handleMyBooksClose() {
@@ -97,6 +139,12 @@ class AppHeader extends Component {
   };
   handleMyAccountToggle = () => {
     this.setState(state => ({ myAccountOpen: !state.myAccountOpen }));
+  };
+
+  handleSearchFieldClose() {}
+  handleSearchFieldOpen() {}
+  handleSearchFieldChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
   logout(event) {
     event.preventDefault();
@@ -153,7 +201,31 @@ class AppHeader extends Component {
                 placeholder="Search..."
                 className={classes.textField}
               />
-              <IconButton>
+
+              <Select
+                classes={{
+                  icon: classes.selectIcon
+                }}
+                disableUnderline
+                autoWidth={true}
+                className={classes.Select}
+                open={this.state.open}
+                onClose={this.handleSearchFieldClose}
+                onOpen={this.handleSearchFieldOpen}
+                value={this.state.searchField}
+                onChange={this.handleSearchFieldChange}
+                inputProps={{
+                  name: "searchField",
+                  id: "searchField"
+                }}
+              >
+                <MenuItem value="all">All</MenuItem>
+                <MenuItem value={"books"}>Books</MenuItem>
+                <MenuItem value={"authors"}>Authors</MenuItem>
+                <MenuItem value={"users"}>Users</MenuItem>
+              </Select>
+
+              <IconButton onClick={this.handleSearch}>
                 <SearchIcon className={classes.searchIcon} />
               </IconButton>
             </Paper>
@@ -250,12 +322,18 @@ class AppHeader extends Component {
                           onClickAway={this.handleMyAccountClose}
                         >
                           <MenuList>
-                            <MenuItem onClick={this.handleMyAccountClose}>
-                              My Account
-                            </MenuItem>
-                            <MenuItem onClick={this.handleMyAccountClose}>
-                              Friends
-                            </MenuItem>
+                            <Link
+                              to="/myAccount"
+                              style={{ textDecoration: "none" }}
+                            >
+                              <MenuItem>My Account</MenuItem>
+                            </Link>
+                            <Link
+                              to="myFriends"
+                              style={{ textDecoration: "none" }}
+                            >
+                              <MenuItem>Friends</MenuItem>
+                            </Link>
                             <MenuItem onClick={this.logout}>Logout</MenuItem>
                           </MenuList>
                         </ClickAwayListener>

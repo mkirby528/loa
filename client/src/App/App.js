@@ -60,7 +60,11 @@ class App extends Component {
             path="/login"
             render={() => <LoginPage updateUser={this.updateUser} />}
           />
-          <Route exact path="/register" component={RegistrationPage} />
+          <Route
+            exact
+            path="/register"
+            render={() => <RegistrationPage updateUser={this.updateUser} />}
+          />
           <Route
             exact
             path="/"

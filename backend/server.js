@@ -11,6 +11,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser()); // required before session.
+app.set("json spaces", 2);
 
 app.use(
   session({
@@ -32,7 +33,7 @@ app.get("/", (req, res) => res.send("index"));
 
 //User routes
 app.use("/users", require("./routes/users"));
-app.use("/gBooks", require("./routes/gBooks"));
+app.use("/books", require("./routes/books"));
 
 //Sync Database
 db.sync().then(() => console.log("Database connected"));
