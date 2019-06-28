@@ -5,7 +5,6 @@ const db = require("./config/database");
 const session = require("express-session");
 const passport = require("./passport");
 const cookieParser = require("cookie-parser");
-// const cookieSession = require('cookie-session')
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));

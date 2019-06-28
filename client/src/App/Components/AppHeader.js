@@ -24,8 +24,13 @@ import Select from "@material-ui/core/Select";
 
 const styles = {
   root: {
-    flexGrow: 1,
-    background: "#2f4858"
+    margin: "0",
+    maxWidth: "100vw",
+    padding: "0 8vw 0 8vw",
+    height: "12%",
+    maxHeight: "12%",
+    backgroundColor: "#2f4858"
+    // border: "4px solid red"
   },
 
   logo: {
@@ -33,7 +38,8 @@ const styles = {
     marginRight: 5
   },
   title: {
-    fontSize: 60
+    fontSize: 60,
+    overflow: "hidden"
   },
   Button: {
     width: 150,
@@ -106,7 +112,8 @@ class AppHeader extends Component {
     this.state = {
       myBooksOpen: false,
       myAccountOpen: false,
-      searchField: "all"
+      searchField: "all",
+      search: ""
     };
     this.handleMyAccountClose = this.handleMyAccountClose.bind(this);
     this.handleMyAccountToggle = this.handleMyAccountToggle.bind(this);
@@ -117,14 +124,24 @@ class AppHeader extends Component {
     this.handleSearchFieldOpen = this.handleSearchFieldOpen.bind(this);
     this.handleSearchFieldClose = this.handleSearchFieldClose.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
-
+  handleSearchChange(evt) {
+    this.setState({
+      search: evt.target.value
+    });
+  }
   handleSearch() {
-    console.log(this.state.searchField);
+    axios
+      .get("books?search=" + this.state.search)
+      .then(response => {
+        alert(response.data[0]["title"] + " by " + response.data[0]["author1"]);
+      })
+      .catch(e => console.log(e));
   }
 
   handleMyBooksClose() {
-    return;
+    this.setState(state => ({ myBooksOpen: !state.myBooksOpen }));
   }
 
   handleMyBooksToggle = () => {
@@ -172,22 +189,24 @@ class AppHeader extends Component {
     const { classes } = this.props;
     let store = this.props.store;
     return (
-      <div className={classes.root}>
+      <div>
         <AppBar position="static" className={classes.root}>
           <Toolbar>
-            <IconButton
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Menu"
-            >
-              <img
-                alt="App Logo"
-                className={classes.logo}
-                src={bookLogo}
-                height="85"
-                width="85"
-              />
-            </IconButton>
+            <Link to="/">
+              <IconButton
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="Menu"
+              >
+                <img
+                  alt="App Logo"
+                  className={classes.logo}
+                  src={bookLogo}
+                  height="85"
+                  width="85"
+                />
+              </IconButton>
+            </Link>
             <Typography
               className={classes.title}
               align="left"
@@ -200,6 +219,7 @@ class AppHeader extends Component {
               <InputBase
                 placeholder="Search..."
                 className={classes.textField}
+                onChange={this.handleSearchChange}
               />
 
               <Select

@@ -4,6 +4,7 @@ import "./App.css";
 import LoginPage from "./Components/pages/LoginPage";
 import RegistrationPage from "./Components/pages/RegistrationPage";
 import HomePage from "./Components/pages/HomePage";
+import SearchPage from "./Components/pages/SearchPage";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import Store from "./MyStore";
@@ -69,6 +70,10 @@ class App extends Component {
             exact
             path="/"
             render={() => <HomePage updateUser={this.updateUser} />}
+          />
+          <Route
+            path="/search"
+            render={() => <SearchPage updateUser={this.updateUser} />}
           />
         </Switch>
       </div>
