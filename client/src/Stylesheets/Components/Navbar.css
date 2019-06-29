@@ -1,0 +1,78 @@
+.navbar {
+  background-color: #2f4858;
+  color: white;
+  margin: 0px;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+#logo {
+  height: 80px;
+  max-height: 80px;
+}
+#logoTitle {
+  margin: 5px;
+  float: left;
+}
+#titleText {
+  margin: auto;
+  text-align: left;
+  color: white;
+  font-weight: bold;
+  font-size: 42px;
+}
+#accountCircle {
+  color: white;
+}
+.col {
+  vertical-align: middle;
+  display: table-cell;
+  float: none;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+.row {
+  display: table;
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+.ant-input {
+  background-color: #175676;
+  color: white;
+  border-radius: 12px;
+  border: 2px solid white;
+  font-size: 24px;
+}
+.ant-input:focus,
+.ant-input:hover {
+  background-color: #175676;
+  color: white;
+  border-radius: 12px;
+  border: 2px solid white;
+  font-size: 24px;
+  outline: 0;
+  box-shadow: none;
+}
+
+.ant-input-search-button {
+  background-color: #175676;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 12px;
+  border: 2px solid white;
+  outline: 0px;
+}
+.ant-input-search-button:hover {
+  background-color: #175676;
+  filter: brightness(150%);
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  border-radius: 12px;
+  border: 2px solid white;
+}
+* {
+}

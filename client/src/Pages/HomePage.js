@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Store from "../../MyStore";
-import "./stylesheets/HomePage.css";
-import AppHeader from "../AppHeader";
+import Store from "../App/MyStore";
+import AppHeader from "../Components/AppHeader";
 class HomePage extends Component {
   render() {
     // let store = this.props.store;

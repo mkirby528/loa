@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Store from "../MyStore";
-import bookLogo from "./res/book_icon_logo.png";
+import Store from "../App/MyStore";
+import bookLogo from "../Resources/book_icon_logo.png";
 import { withStyles } from "@material-ui/core/styles";
 import { AppBar, Typography } from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -109,7 +109,7 @@ const styles = {
 class AppHeader extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.myBooksOpen = {
       myBooksOpen: false,
       myAccountOpen: false,
       searchField: "all",
@@ -133,7 +133,7 @@ class AppHeader extends Component {
   }
   handleSearch() {
     axios
-      .get("books?search=" + this.state.search)
+      .get("books?search=" + this.myBooksOpen.search)
       .then(response => {
         alert(response.data[0]["title"] + " by " + response.data[0]["author1"]);
       })
@@ -185,7 +185,7 @@ class AppHeader extends Component {
   }
 
   render() {
-    const { myBooksOpen, myAccountOpen } = this.state;
+    const { myBooksOpen, myAccountOpen } = this.myBooksOpen;
     const { classes } = this.props;
     let store = this.props.store;
     return (
@@ -229,10 +229,10 @@ class AppHeader extends Component {
                 disableUnderline
                 autoWidth={true}
                 className={classes.Select}
-                open={this.state.open}
+                open={this.myBooksOpen.open}
                 onClose={this.handleSearchFieldClose}
                 onOpen={this.handleSearchFieldOpen}
-                value={this.state.searchField}
+                value={this.myBooksOpen.searchField}
                 onChange={this.handleSearchFieldChange}
                 inputProps={{
                   name: "searchField",

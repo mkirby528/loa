@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Store from "../MyStore";
+import Store from "../App/MyStore";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";

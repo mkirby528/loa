@@ -1,15 +1,17 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import React from "react";
 
-import './index.css';
-import App from './App/App';
-import Store from './App/MyStore'
+import { render } from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
-render((
-    <Store.Container>
+import "./Stylesheets/index.css";
+import App from "./App/App";
+import Store from "./App/MyStore";
+
+render(
+  <Store.Container>
     <BrowserRouter>
-        <App/>
+      <App />
     </BrowserRouter>
-    </Store.Container>
-), document.getElementById('root'));
+  </Store.Container>,
+  document.getElementById("root")
+);

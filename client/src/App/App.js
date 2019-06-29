@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import "./App.css";
-import LoginPage from "./Components/pages/LoginPage";
-import RegistrationPage from "./Components/pages/RegistrationPage";
-import HomePage from "./Components/pages/HomePage";
-import SearchPage from "./Components/pages/SearchPage";
+import "../Stylesheets/App.css";
+import LoginPage from "../Pages/LoginPage";
+import RegistrationPage from "../Pages/RegistrationPage";
+import HomePage from "../Pages/HomePage";
+import SearchPage from "../Pages/SearchPage";
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import Store from "./MyStore";

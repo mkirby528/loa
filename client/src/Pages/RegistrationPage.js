@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import "./stylesheets/RegistrationPage.css";
-import bookLogo from "../res/book_icon_logo.png";
+import "../Stylesheets/Pages/RegistrationPage.css";
+import bookLogo from "../Resources/book_icon_logo.png";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 

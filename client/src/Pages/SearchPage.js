@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import Store from "../../MyStore";
-import AppHeader from "../AppHeader";
+import Store from "../App/MyStore";
+import AppHeader from "../Components/AppHeader";
+import AppBar from "../Components/Navbar";
 import { withStyles } from "@material-ui/core/styles";
-import BookSearchLabel from "../BookSearchLabel";
+import BookSearchLabel from "../Components/BookSearchLabel";
 import List from "@material-ui/core/List";
 
 const styles = {
@@ -33,7 +34,7 @@ class SearchPage extends Component {
     // let store = this.props.store;
     return (
       <div className={classes.searchPage}>
-        <AppHeader updateUser={this.props.updateUser} />
+        <AppBar updateUser={this.props.updateUser} />
         <div className={classes.bg}>
           {/* <Paper
             style={{
