@@ -24,7 +24,6 @@ class App extends Component {
   }
 
   updateUser(userObject) {
-    alert("updateUserCalled");
     this.store.set("loggedIn")(userObject.loggedIn);
     this.store.set("username")(userObject.username);
     this.store.set("userEmail")(userObject.email);

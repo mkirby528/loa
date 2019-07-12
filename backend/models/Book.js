@@ -1,5 +1,8 @@
 const Sequelize = require("sequelize");
 const db = require("../config/database");
+const ISBN = require("./ISBN");
+const AuthorBook = require("./AuthorBook");
+const Author = require("./ISBN");
 
 const Book = db.define("book", {
   key: {
@@ -11,15 +14,7 @@ const Book = db.define("book", {
     type: Sequelize.STRING,
     notEmpty: true
   },
-  author1: {
-    type: Sequelize.STRING
-  },
-  author2: {
-    type: Sequelize.STRING
-  },
-  author3: {
-    type: Sequelize.STRING
-  },
+
   cover_image: {
     type: Sequelize.STRING
   },
@@ -28,10 +23,7 @@ const Book = db.define("book", {
   },
   full_title: {
     type: Sequelize.STRING
-  },
-  isbns: {
-    type: Sequelize.BLOB
   }
 });
-
+Book.belongsToMany(Author, { through: AuthorBook });
 module.exports = Book;
