@@ -7,6 +7,7 @@ import { Typography, Divider, Row, Col } from "antd";
 import { Input, PageHeader } from "antd";
 import { Menu, Dropdown, Button, Icon, message } from "antd";
 import { MdAccountCircle } from "react-icons/md";
+import axios from "axios";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -15,6 +16,39 @@ const { Search } = Input;
 class AppBar extends Component {
   constructor(props) {
     super(props);
+
+    this.onAccountMenuClick = this.onAccountMenuClick.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+  }
+
+  onAccountMenuClick(event) {
+    if (event.key == "logout") {
+      axios
+        .get("/users/logout")
+        .then(response => {
+          if (response.status === 200) {
+            this.props.updateUser({
+              loggedIn: false,
+              username: null,
+              firstname: null,
+              lastname: null,
+              email: null
+            });
+            this.forceUpdate();
+          }
+        })
+        .catch(error => {
+          console.log("Logout error: " + error);
+        });
+    }
+  }
+  handleSearch(search) {
+    axios
+      .get("books?search=" + search)
+      .then(response => {
+        alert(response.data[0]["title"] + " by " + response.data[0]["author1"]);
+      })
+      .catch(e => console.log(e));
   }
 
   myBooksMenu = (
@@ -43,6 +77,40 @@ class AppBar extends Component {
   );
   render() {
     let store = this.props.store;
+    let loginOrAccount;
+
+    var accountMenu = (
+      <Menu onClick={this.onAccountMenuClick} mode="">
+        <Menu.Item>
+          <NavLink to="/myAccount">
+            <span>My Account</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item>
+          <NavLink to="/myFriends">
+            <span>My Friends</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="logout">
+          <span>Sign Out</span>
+        </Menu.Item>
+      </Menu>
+    );
+
+    if (store.get("loggedIn")) {
+      loginOrAccount = (
+        <Dropdown overlay={accountMenu} placement="bottomCenter">
+          <MdAccountCircle id="accountCircle" size={75} />
+        </Dropdown>
+      );
+    } else {
+      loginOrAccount = (
+        <Link to="login">
+          <Button>Login</Button>
+        </Link>
+      );
+    }
+
     return (
       <div className="navbar">
         <Row className="row">
@@ -58,7 +126,7 @@ class AppBar extends Component {
             <Search
               placeholder="Search..."
               enterButton="Search"
-              onSearch={value => console.log(value)}
+              onSearch={value => this.handleSearch(value)}
               style={{ fontSize: 50 }}
               size="large"
             />
@@ -73,9 +141,7 @@ class AppBar extends Component {
             </Dropdown>
           </Col>
           <Col className="col" xs={1}>
-            <Dropdown overlay={this.myBooksMenu} placement="bottomCenter">
-              <MdAccountCircle id="accountCircle" size={75} />
-            </Dropdown>
+            {loginOrAccount}
           </Col>
         </Row>
       </div>

@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Store from "../App/MyStore";
-import AppHeader from "../Components/AppHeader";
+import Navbar from "../Components/Navbar";
 class HomePage extends Component {
   render() {
     // let store = this.props.store;
-    return <AppHeader updateUser={this.props.updateUser} />;
+    return <Navbar updateUser={this.props.updateUser} />;
   }
 }
 export default Store.withStore(HomePage);
