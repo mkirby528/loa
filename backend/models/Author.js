@@ -1,25 +1,23 @@
-const Sequelize = require("sequelize");
-const db = require("../config/database");
-const Book = require("./Book");
-const AuthorBook = require("./AuthorBook");
+module.exports = (sequelize, Sequelize) => {
+  const Author = sequelize.define("author", {
+    key: {
+      primaryKey: true,
+      type: Sequelize.STRING,
+      unique: true
+    },
+    full_name: {
+      type: Sequelize.STRING
+    },
+    first_name: {
+      type: Sequelize.STRING
+    },
+    last_name: {
+      type: Sequelize.STRING
+    },
+    birth_date: {
+      type: Sequelize.STRING
+    }
+  });
 
-const Author = db.define("author", {
-  key: {
-    primaryKey: true,
-    type: Sequelize.STRING,
-    unique: true
-  },
-  first_name: {
-    type: Sequelize.STRING
-  },
-  last_name: {
-    type: Sequelize.STRING
-  },
-  birth_date: {
-    type: Sequelize.STRING
-  }
-});
-
-Author.belongsToMany(Book, { through: AuthorBook });
-
-module.exports = Author;
+  return Author;
+};

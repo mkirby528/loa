@@ -35,6 +35,6 @@ app.use("/users", require("./routes/users"));
 app.use("/books", require("./routes/books"));
 
 //Sync Database
-db.sync().then(() => console.log("Database connected"));
+db.sequelize.sync({}).then(() => console.log("Database connected"));
 
 app.listen(API_PORT, () => console.log(`API listening on port ${API_PORT}`));

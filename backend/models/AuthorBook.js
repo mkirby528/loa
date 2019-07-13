@@ -1,6 +1,5 @@
-const Sequelize = require("sequelize");
-const db = require("../config/database");
+module.exports = (sequelize, Sequelize) => {
+  const AuthorBook = sequelize.define("author_book", {});
 
-const AuthorBook = db.define("author_book", {});
-
-module.exports = AuthorBook;
+  return AuthorBook;
+};
