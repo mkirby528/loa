@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
+const db = require("../config/database");
+const User = db.User;
 const passport = require("../passport/");
 
 router.post("/", (req, res) => {

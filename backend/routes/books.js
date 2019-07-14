@@ -20,17 +20,14 @@ router.get("/", (req, res, next) => {
       }
     ]
   }).then(books => {
-    console.log();
-    console.log(books[0].title);
-    console.log("Authors:");
     for (var i = 0; i < books[0].authors.length; i++) {
       console.log(books[0].authors[i].full_name);
     }
-    console.log("ISBNS:");
     for (var i = 0; i < books[0].isbns.length; i++) {
       console.log(books[0].isbns[i].isbn);
     }
   });
+  res.send("Search Submitted");
 });
 
 module.exports = router;
