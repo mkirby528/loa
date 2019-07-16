@@ -2,5 +2,49 @@
   margin: 20px auto 20px auto;
   background-color: #74b3ce;
   max-width: 40%;
-  height: 150px;
+  height: 200px;
+  max-height: 200px;
+  color: white;
+}
+
+.img-col {
+  display: flex;
+  justify-content: left;
+  text-align: center;
+  align-items: center;
+  height: 200px;
+}
+.bookCover {
+  margin: 15px;
+  max-width: 80%;
+  height: auto;
+  max-height: 80%;
+  border: 3px solid white;
+  border-radius: 15%;
+  /* border: 3px solid white; */
+}
+
+.info-col {
+  /* margin-left: 10px; */
+  /* border: 2px solid green; */
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
+  align-items: top;
+  height: 200px;
+  color: white;
+}
+.book-title {
+  color: white;
+  text-decoration: underline;
+}
+a {
+  color: white;
+}
+.author-info {
+  display: inline-flex;
+}
+h2 {
+  color: white;
 }

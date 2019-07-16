@@ -29,10 +29,17 @@ db.Book = require("../models/Book")(sequelize, Sequelize);
 db.Author = require("../models/Author")(sequelize, Sequelize);
 db.ISBN = require("../models/ISBN")(sequelize, Sequelize);
 db.AuthorBook = require("../models/AuthorBook")(sequelize, Sequelize);
+db.Rating = require("../models/Rating")(sequelize, Sequelize);
 
 //Author Book N:M
 db.Author.belongsToMany(db.Book, { through: db.AuthorBook });
 db.Book.belongsToMany(db.Author, { through: db.AuthorBook });
+
+// Ratings
+db.User.hasMany(db.Rating);
+db.Rating.belongsTo(db.User);
+db.Book.hasMany(db.Rating);
+db.Rating.belongsTo(db.Book);
 
 //Book ISBN 1:M
 db.Book.hasMany(db.ISBN, { foreignKey: "bookKey" });

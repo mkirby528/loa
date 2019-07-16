@@ -8,8 +8,8 @@ module.exports = (sequelize, Sequelize) => {
     bookKey: {
       type: Sequelize.STRING,
       references: {
-        model: "books", // 'persons' refers to table name
-        key: "key" // 'id' refers to column name in persons table
+        model: "books", // 'books' refers to table name
+        key: "key" // 'key' refers to column name in persons table
       }
     }
   });
