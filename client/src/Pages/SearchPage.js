@@ -5,12 +5,10 @@ import BookSearchCard from "../Components/BookSearchCard";
 import "../Stylesheets/Pages/SearchPage.css";
 import { Row } from "antd";
 import axios from "axios";
-import { throws } from "assert";
-import { resolve } from "path";
 class SearchPage extends Component {
   constructor(props) {
     super(props);
-
+    this.updateSearch = this.updateSearch.bind(this);
     this.state = {
       books: [],
       loading: true
@@ -18,7 +16,14 @@ class SearchPage extends Component {
   }
   componentDidMount() {
     var url = window.location.search;
-    var search = url.replace("?q=", ""); // remove the ?q=
+    var search = url.replace("?q=", "");
+
+    axios.get("/books?search=" + search).then(results => {
+      this.setState({ books: results.data, loading: false });
+      console.log(this.state.books);
+    });
+  }
+  updateSearch(search) {
     axios.get("/books?search=" + search).then(results => {
       this.setState({ books: results.data, loading: false });
       console.log(this.state.books);
@@ -28,12 +33,15 @@ class SearchPage extends Component {
   render() {
     return (
       <Row className="root">
-        <Navbar updateUser={this.props.updateUser} />
+        <Navbar
+          updateSearch={this.updateSearch}
+          updateUser={this.props.updateUser}
+        />
         <div className="search-page">
           <div>
-            {/* {this.state.books.map((e, i) => (
+            {this.state.books.map((e, i) => (
               <BookSearchCard book={e} key={i}></BookSearchCard>
-            ))} */}
+            ))}
           </div>
         </div>
       </Row>

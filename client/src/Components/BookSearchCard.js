@@ -8,18 +8,22 @@ class BookSearchCard extends Component {
   render() {
     if (this.props.book.authors === undefined) {
       var authors = [];
+      var author_keys = [];
     } else {
-      authors = this.props.book.authors;
+      authors = this.props.book.authors.split(",");
+      author_keys = this.props.book.author_keys.split(",");
+    }
+    if (this.props.book.rating === undefined) {
+      var rating = 0;
+    } else {
+      rating = this.props.book.rating / 10;
     }
     var cover =
       "http://covers.openlibrary.org/b/id/" +
       this.props.book.cover_image +
       "-M.jpg";
-    // console.log(this.props.book.authors);
     return (
       <div className="card-root">
-        {this.props.book.avgRating}
-
         <Row className="card-row">
           <Col xs={5} className="img-col">
             <img alt="Book Cover" className="bookCover" src={cover}></img>
@@ -36,20 +40,20 @@ class BookSearchCard extends Component {
                 if (rowLen === i + 1) {
                   return (
                     <h2 key={i}>
-                      <a href={"author/" + e.key}> {e.full_name}</a>
+                      <a href={"author/" + author_keys[i]}> {authors[i]}</a>
                     </h2>
                   );
                 } else {
                   return (
                     <h2 key={i}>
-                      <a href={"author/" + e.key}>{e.full_name},</a>
+                      <a href={"author/" + author_keys[i]}>{authors[i]},</a>
                     </h2>
                   );
                 }
               })}
             </div>
             <StarRatings
-              rating={4}
+              rating={rating}
               starRatedColor="#09bc8a"
               numberOfStars={5}
               starDimension="30px"

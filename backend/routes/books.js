@@ -18,7 +18,7 @@ router.get("/", (req, res, next) => {
     books.cover_image,
     books.publish_year,
             GROUP_CONCAT(distinct c.full_name ORDER BY c.full_name) authors,
-        GROUP_CONCAT(distinct c.key) author_keys,
+        GROUP_CONCAT(distinct c.key ORDER BY c.full_name) author_keys,
         GROUP_CONCAT(distinct isbns.isbn) isbns,
             AVG(ratings.rating) AS rating
         

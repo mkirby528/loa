@@ -44,11 +44,20 @@ class AppBar extends Component {
     }
   }
   handleSearch(search) {
+    if (window.location.pathname === "/search") {
+      this.props.updateSearch(search);
+    }
     this.setState({
       redirectTo: "/search?q=" + search
     });
   }
-
+  componentDidUpdate() {
+    if (this.state.redirectTo != null) {
+      this.setState({
+        redirectTo: null
+      });
+    }
+  }
   myBooksMenu = (
     <Menu mode="">
       <Menu.Item>
@@ -76,9 +85,7 @@ class AppBar extends Component {
   render() {
     if (this.state.redirectTo) {
       var redir = this.state.redirectTo;
-      this.setState({
-        redirectTo: null
-      });
+
       return <Redirect to={redir} />;
     }
     let store = this.props.store;

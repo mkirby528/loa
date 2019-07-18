@@ -19,9 +19,9 @@ timestamp = datetime.datetime.fromtimestamp(
 
 
 request = requests.get(
-    'http://openlibrary.org/search.json?title=good+omens').json()['docs']
+    'https://openlibrary.org/search.json?title=slaughterhouse+five').json()['docs']
 
-for i in range(2):
+for i in range(1):
     bookData = request[i]
     bookKey = bookData['key']
 
