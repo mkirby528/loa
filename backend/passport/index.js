@@ -4,14 +4,14 @@ const db = require("../config/database");
 const User = db.User;
 // called on login, saves the id to session req.session.passport.user = {id:'..'}
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user.username);
 });
 
 // user object attaches to the request as req.user
-passport.deserializeUser((id, done) => {
+passport.deserializeUser((username, done) => {
   User.findOne({
     where: {
-      id: id
+      username: username
     }
   }).then(function(user) {
     if (user == null) {

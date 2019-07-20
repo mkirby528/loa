@@ -10,7 +10,6 @@ var mysql = require("mysql");
 
 router.get("/", (req, res, next) => {
   var search = req.query.search;
-  console.log(search);
   var queryString =
     `SELECT
     books.key,

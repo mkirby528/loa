@@ -20,13 +20,11 @@ class SearchPage extends Component {
 
     axios.get("/books?search=" + search).then(results => {
       this.setState({ books: results.data, loading: false });
-      console.log(this.state.books);
     });
   }
   updateSearch(search) {
     axios.get("/books?search=" + search).then(results => {
       this.setState({ books: results.data, loading: false });
-      console.log(this.state.books);
     });
   }
 
