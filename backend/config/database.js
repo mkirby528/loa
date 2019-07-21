@@ -35,18 +35,6 @@ db.BookStatus = require("../models/BookStatus")(sequelize, Sequelize);
 db.Author.belongsToMany(db.Book, { through: db.AuthorBook });
 db.Book.belongsToMany(db.Author, { through: db.AuthorBook });
 
-// Ratings
-db.User.hasMany(db.Rating);
-db.Rating.belongsTo(db.User);
-db.Book.hasMany(db.Rating);
-db.Rating.belongsTo(db.Book);
-
-// Book Status
-db.User.hasMany(db.BookStatus);
-db.BookStatus.belongsTo(db.User);
-db.Book.hasMany(db.BookStatus);
-db.BookStatus.belongsTo(db.Book);
-
 // Book ISBN 1:M
 db.Book.hasMany(db.ISBN, { foreignKey: "bookKey" });
 db.ISBN.belongsTo(db.Book, { foreignKey: "bookKey" });

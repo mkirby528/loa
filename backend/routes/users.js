@@ -64,8 +64,6 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/", (req, res, next) => {
-  console.log("===== user======");
-  console.log(req.user.username);
   if (req.user) {
     res.json({ user: req.user });
   } else {

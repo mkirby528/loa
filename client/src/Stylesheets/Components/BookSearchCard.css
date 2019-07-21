@@ -39,6 +39,7 @@
   color: white;
   text-decoration: underline;
 }
+
 a {
   color: white;
 }
@@ -46,5 +47,70 @@ a {
   display: inline-flex;
 }
 h2 {
+  color: white;
+}
+#stars-status {
+  display: inline-flex;
+  vertical-align: middle;
+}
+.status-button {
+  padding-left: 10px;
+  text-align: left;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: 500;
+  width: 150px;
+  margin-right: 0px;
+  margin-left: 15px;
+  height: 100%;
+  border: none;
+  outline: none;
+}
+
+.dropdown-icon {
+  display: table-cell;
+  vertical-align: middle;
+  margin-left: 0px;
+  width: 30px;
+  background-color: #09bc8a;
+}
+.status-div {
+  height: 100%;
+  display: table;
+  align-self: center;
+}
+
+#read-status {
+  background-color: lightgray;
+  color: black;
+}
+#read-status::first-letter {
+  font-weight: 1000;
+  font-size: 22px;
+  color: #176645;
+  margin-right: 5px;
+}
+#current-status {
+  background-color: lightgray;
+  color: black;
+}
+#current-status::first-letter {
+  font-weight: 1000;
+  font-size: 22px;
+  color: goldenrod;
+  margin-right: 5px;
+}
+#toRead-status {
+  background-color: lightgray;
+  color: black;
+}
+#toRead-status::first-letter {
+  font-weight: 1000;
+  font-size: 22px;
+  color: slateblue;
+  margin-right: 5px;
+}
+#unread-status {
+  background-color: #09bc8a;
   color: white;
 }

@@ -1,14 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../config/database");
-const Book = db.Book;
-const Rating = db.Rating;
-const Author = db.Author;
-const ISBN = db.ISBN;
-const Op = db.Sequelize.Op;
-var mysql = require("mysql");
 
-router.get("/", (req, res, next) => {
+router.get("/", (req, res) => {
+  var user = req.user;
+  if (user != undefined) {
+    user = user.username;
+  } else {
+    user = "";
+  }
   var search = req.query.search;
   var queryString =
     `SELECT
@@ -19,7 +19,9 @@ router.get("/", (req, res, next) => {
             GROUP_CONCAT(distinct c.full_name ORDER BY c.full_name) authors,
         GROUP_CONCAT(distinct c.key ORDER BY c.full_name) author_keys,
         GROUP_CONCAT(distinct isbns.isbn) isbns,
-            AVG(ratings.rating) AS rating
+            AVG(ratings.rating) AS rating,
+            book_status.status as userStatus
+
         
     FROM    Books books
             left JOIN author_books b
@@ -27,6 +29,9 @@ router.get("/", (req, res, next) => {
             left  JOIn Authors c
                 ON b.authorKey = c.key
         LEFT  JOIN RATINGs ON RATINGs.bookKey = books.key
+        LEFT  JOIN book_status ON book_status.bookKey = books.key and book_status.user = '` +
+    user +
+    `'
         LEFT  JOIN ISBNS ON isbns.bookKey = books.key
         where books.title like '%` +
     search +
@@ -34,7 +39,6 @@ router.get("/", (req, res, next) => {
 
   db.sequelize
     .query(queryString, {
-      replacements: { search: search },
       type: db.sequelize.QueryTypes.SELECT
     })
     .then(books => {
@@ -42,4 +46,33 @@ router.get("/", (req, res, next) => {
     });
 });
 
+router.post("/shelf", (req, res) => {
+  var user = req.user;
+  if (user != undefined) {
+    user = user.username;
+  } else {
+    res.status(401).send("User Not Logged In");
+    return;
+  }
+  var bookKey = req.body.data.bookKey;
+  var status = req.body.data.status;
+  db.BookStatus.upsert({ bookKey: bookKey, user: user, status: status });
+});
+router.delete("/unshelf", (req, res) => {
+  var user = req.user;
+  if (user != undefined) {
+    user = user.username;
+  } else {
+    res.status(401).send("User Not Logged In");
+    return;
+  }
+  var bookKey = req.body.bookKey;
+
+  db.BookStatus.destroy({
+    where: {
+      bookKey: bookKey,
+      user: user
+    }
+  });
+});
 module.exports = router;

@@ -17,10 +17,13 @@ class SearchPage extends Component {
   componentDidMount() {
     var url = window.location.search;
     var search = url.replace("?q=", "");
-
-    axios.get("/books?search=" + search).then(results => {
-      this.setState({ books: results.data, loading: false });
-    });
+    axios
+      .get("/books?search=" + search, {
+        paramas: { user: "hi" }
+      })
+      .then(results => {
+        this.setState({ books: results.data, loading: false });
+      });
   }
   updateSearch(search) {
     axios.get("/books?search=" + search).then(results => {
