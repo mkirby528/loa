@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../Stylesheets/Pages/LoginPage.css";
 import bookLogo from "../Resources/book_icon_logo.png";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -39,6 +39,7 @@ class LoginPage extends Component {
             email: response.data.email
           });
           // update the state to redirect to home
+          this.props.history.go(-1);
           this.setState({
             redirectTo: "/"
           });
@@ -58,39 +59,39 @@ class LoginPage extends Component {
         <p className="errorMessage">Incorrect username or password</p>
       );
     }
-    if (this.state.redirectTo) {
-      return <Redirect to={{ pathname: this.state.redirectTo }} />;
-    } else {
-      return (
-        <div className="login-page">
-          <div className="form">
-            <img src={bookLogo} alt="Logo" />
-            <form className="login-form">
-              <input
-                type="text"
-                placeholder="Username"
-                id="username"
-                onChange={this.handleChange}
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                id="password"
-                value={this.state.password}
-                onChange={this.handleChange}
-              />
-              {errorMessage}
-              <button type="submit" onClick={this.handleSubmit}>
-                login
-              </button>
-              <p className="message">
-                Not registered? <Link to="/register">Create an account</Link>
-              </p>
-            </form>
-          </div>
+    // if (this.state.redirectTo) {
+    //   return <Redirect to={{ pathname: this.state.redirectTo }} />;
+    // } else {
+    return (
+      <div className="login-page">
+        <div className="form">
+          <img src={bookLogo} alt="Logo" />
+          <form className="login-form">
+            <input
+              type="text"
+              placeholder="Username"
+              id="username"
+              onChange={this.handleChange}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              value={this.state.password}
+              onChange={this.handleChange}
+            />
+            {errorMessage}
+            <button type="submit" onClick={this.handleSubmit}>
+              login
+            </button>
+            <p className="message">
+              Not registered? <Link to="/register">Create an account</Link>
+            </p>
+          </form>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
-export default LoginPage;
+
+export default withRouter(LoginPage);

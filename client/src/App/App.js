@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { withRouter, Route } from "react-router-dom";
 import "../Stylesheets/App.css";
 import LoginPage from "../Pages/LoginPage";
 import RegistrationPage from "../Pages/RegistrationPage";
@@ -55,30 +55,28 @@ class App extends Component {
           <meta charSet="utf-8" />
           <title>BetterReads</title>
         </Helmet>
-        <Switch className="Pages">
-          <Route
-            exact
-            path="/login"
-            render={() => <LoginPage updateUser={this.updateUser} />}
-          />
-          <Route
-            exact
-            path="/register"
-            render={() => <RegistrationPage updateUser={this.updateUser} />}
-          />
-          <Route
-            exact
-            path="/"
-            render={() => <HomePage updateUser={this.updateUser} />}
-          />
-          <Route
-            path="/search"
-            render={() => <SearchPage updateUser={this.updateUser} />}
-          />
-        </Switch>
+        <Route
+          exact
+          path="/login"
+          render={() => <LoginPage updateUser={this.updateUser} />}
+        />
+        <Route
+          exact
+          path="/register"
+          render={() => <RegistrationPage updateUser={this.updateUser} />}
+        />
+        <Route
+          exact
+          path="/"
+          render={() => <HomePage updateUser={this.updateUser} />}
+        />
+        <Route
+          path="/search"
+          render={() => <SearchPage updateUser={this.updateUser} />}
+        />
       </div>
     );
   }
 }
 
-export default Store.withStore(App);
+export default withRouter(Store.withStore(App));

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import Store from "../App/MyStore";
 import Navbar from "../Components/Navbar";
 import BookSearchCard from "../Components/BookSearchCard";
@@ -49,4 +50,4 @@ class SearchPage extends Component {
     );
   }
 }
-export default Store.withStore(SearchPage);
+export default withRouter(Store.withStore(SearchPage));

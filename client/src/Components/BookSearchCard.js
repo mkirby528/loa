@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Store from "../App/MyStore";
 import { Row, Col } from "antd";
 import { Menu, Dropdown, Icon, message } from "antd";
-
+import { Redirect, withRouter } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 import "../Stylesheets/Components/BookSearchCard.css";
 import Axios from "axios";
@@ -14,88 +14,111 @@ class BookSearchCard extends Component {
     this.handleMenuClick = this.handleMenuClick.bind(this);
     switch (this.props.book.userStatus) {
       case "read":
-        this.state = { bookState: "read", buttonText: "\u2713 read" };
+        this.state = {
+          bookState: "read",
+          buttonText: "\u2713 read"
+        };
         break;
       case "toRead":
-        this.state = { bookState: "toRead", buttonText: "\u2713 to read" };
+        this.state = {
+          bookState: "toRead",
+          buttonText: "\u2713 to read"
+        };
         break;
       case "current":
-        this.state = { bookState: "current", buttonText: "\u2713 current" };
+        this.state = {
+          bookState: "current",
+          buttonText: "\u2713 current"
+        };
         break;
       default:
-        this.state = { bookState: "unread", buttonText: "Want to Read" };
+        this.state = {
+          bookState: "unread",
+          buttonText: "Want to Read"
+        };
     }
   }
 
   handleButtonClick() {
-    switch (this.state.bookState) {
-      case "read":
-        message.info(this.props.book.title + " is in your read list");
-        break;
-      case "toRead":
-        message.info(this.props.book.title + " is in your to read list");
-        break;
-      case "current":
-        message.info(
-          this.props.book.title + " is in your currently reading list"
-        );
-        break;
-      case "unread":
-        message.info(
-          "Added " + this.props.book.title + " to your to read list",
-          2
-        );
-        this.setState({ bookState: "toRead", buttonText: "\u2713 to read" });
-        Axios.post("/books/shelf", {
-          data: { bookKey: this.props.book.key, status: "toRead" }
-        });
-        break;
+    if (!this.props.store.get("loggedIn")) {
+      this.props.history.push("/login");
+    } else {
+      switch (this.state.bookState) {
+        case "read":
+          message.info(this.props.book.title + " is in your read list");
+          break;
+        case "toRead":
+          message.info(this.props.book.title + " is in your to read list");
+          break;
+        case "current":
+          message.info(
+            this.props.book.title + " is in your currently reading list"
+          );
+          break;
+        case "unread":
+          message.info(
+            "Added " + this.props.book.title + " to your to read list",
+            2
+          );
+          this.setState({ bookState: "toRead", buttonText: "\u2713 to read" });
+          Axios.post("/books/shelf", {
+            data: { bookKey: this.props.book.key, status: "toRead" }
+          });
+          break;
+        default:
+      }
     }
   }
 
   handleMenuClick(e) {
-    switch (e.key) {
-      case "read":
-        message.info(
-          "Added " + this.props.book.title + " to your read list",
-          2
-        );
-        Axios.post("/books/shelf", {
-          data: { bookKey: this.props.book.key, status: "read" }
-        });
-        this.setState({ bookState: "read", buttonText: "\u2713 read" });
-        break;
-      case "toRead":
-        Axios.post("/books/shelf", {
-          data: { bookKey: this.props.book.key, status: "toRead" }
-        });
-        message.info(
-          "Added " + this.props.book.title + " to your to read list",
-          2
-        );
+    if (!this.props.store.get("loggedIn")) {
+      this.props.history.push("/login");
+    } else {
+      switch (e.key) {
+        case "read":
+          message.info(
+            "Added " + this.props.book.title + " to your read list",
+            2
+          );
+          Axios.post("/books/shelf", {
+            data: { bookKey: this.props.book.key, status: "read" }
+          });
+          this.setState({ bookState: "read", buttonText: "\u2713 read" });
+          break;
+        case "toRead":
+          Axios.post("/books/shelf", {
+            data: { bookKey: this.props.book.key, status: "toRead" }
+          });
+          message.info(
+            "Added " + this.props.book.title + " to your to read list",
+            2
+          );
 
-        this.setState({ bookState: "toRead", buttonText: "\u2713 to read" });
-        break;
-      case "current":
-        Axios.post("/books/shelf", {
-          data: { bookKey: this.props.book.key, status: "current" }
-        });
-        message.info(
-          "Added " + this.props.book.title + " to your current books list",
-          2
-        );
+          this.setState({ bookState: "toRead", buttonText: "\u2713 to read" });
+          break;
+        case "current":
+          Axios.post("/books/shelf", {
+            data: { bookKey: this.props.book.key, status: "current" }
+          });
+          message.info(
+            "Added " + this.props.book.title + " to your current books list",
+            2
+          );
 
-        this.setState({ bookState: "current", buttonText: "\u2713 current" });
-        break;
-      case "none":
-        Axios.delete("/books/unshelf", {
-          data: { bookKey: this.props.book.key }
-        });
-        message.info(
-          "Removed " + this.props.book.title + " from your lists",
-          2
-        );
-        this.setState({ bookState: "unread", buttonText: "Want to Read" });
+          this.setState({ bookState: "current", buttonText: "\u2713 current" });
+          break;
+        case "none":
+          Axios.delete("/books/unshelf", {
+            data: { bookKey: this.props.book.key }
+          });
+          message.info(
+            "Removed " + this.props.book.title + " from your lists",
+            2
+          );
+          this.setState({ bookState: "unread", buttonText: "Want to Read" });
+          break;
+        default:
+      }
     }
   }
 
@@ -186,4 +209,4 @@ class BookSearchCard extends Component {
     );
   }
 }
-export default Store.withStore(BookSearchCard);
+export default withRouter(Store.withStore(BookSearchCard));
