@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Store from "../App/MyStore";
 import "../Stylesheets/Components/Navbar.css";
 import bookLogo from "../Resources/book_icon_logo.png";
-import { NavLink, Link, Redirect } from "react-router-dom";
+import { NavLink, Link, Redirect, withRouter } from "react-router-dom";
 import { Typography, Row, Col } from "antd";
 import { Input } from "antd";
 import { Menu, Dropdown, Button, Icon } from "antd";
@@ -22,6 +22,10 @@ class AppBar extends Component {
     this.onAccountMenuClick = this.onAccountMenuClick.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
   }
+  componentDidMount() {
+    console.log("his");
+  }
+
   onAccountMenuClick(event) {
     if (event.key === "logout") {
       axios
@@ -36,6 +40,7 @@ class AppBar extends Component {
               email: null
             });
             this.forceUpdate();
+            this.props.history.push("/");
           }
         })
         .catch(error => {
@@ -156,4 +161,4 @@ class AppBar extends Component {
   }
 }
 
-export default Store.withStore(AppBar);
+export default withRouter(Store.withStore(AppBar));

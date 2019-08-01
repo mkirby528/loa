@@ -54,6 +54,9 @@ h2 {
   vertical-align: middle;
 }
 .status-button {
+  border: 2px solid white;
+  border-radius: 10px 0px 0px 10px;
+  border-right: 0;
   padding-left: 10px;
   text-align: left;
   text-transform: capitalize;
@@ -63,11 +66,12 @@ h2 {
   margin-right: 0px;
   margin-left: 15px;
   height: 100%;
-  border: none;
-  outline: none;
 }
 
 .dropdown-icon {
+  border: 2px solid white;
+  border-radius: 0px 10px 10px 0px;
+
   display: table-cell;
   vertical-align: middle;
   margin-left: 0px;

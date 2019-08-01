@@ -12,30 +12,39 @@ class BookSearchCard extends Component {
     super(props);
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleMenuClick = this.handleMenuClick.bind(this);
+    this.state = { bookState: this.props.book.userStatus, buttonText: "" };
+  }
+  componentDidMount() {
+    this.updateState();
+  }
+  componentDidUpdate(prevProps) {
+    if (this.props.book != prevProps.book) this.updateState();
+  }
+  updateState() {
     switch (this.props.book.userStatus) {
       case "read":
-        this.state = {
+        this.setState({
           bookState: "read",
           buttonText: "\u2713 read"
-        };
+        });
         break;
       case "toRead":
-        this.state = {
+        this.setState({
           bookState: "toRead",
           buttonText: "\u2713 to read"
-        };
+        });
         break;
       case "current":
-        this.state = {
+        this.setState({
           bookState: "current",
           buttonText: "\u2713 current"
-        };
+        });
         break;
       default:
-        this.state = {
+        this.setState({
           bookState: "unread",
           buttonText: "Want to Read"
-        };
+        });
     }
   }
 
